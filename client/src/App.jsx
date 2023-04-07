@@ -13,12 +13,16 @@ function App() {
   const [userId, setUserId] = useState('')
 console.log(userId);
   const handleSubmit = async () => {
-      const url = `http://localhost:8800/users`;
+      const url = `https://mongodb-crud-psi.vercel.app/users`;
       axios
           .post(url, first)
           .then((res) => {
               if (res.status === 200) {
                   hitToast('success', res.data.message);
+                  setFirst({
+                    name: '',
+                    email: ''
+                  })
               }
               refetch()
           })
@@ -33,7 +37,7 @@ console.log(userId);
     queryKey: ["repoData"],
     queryFn: () =>
       axios
-        .get("http://localhost:8800/users")
+        .get("https://mongodb-crud-psi.vercel.app/users")
         .then((res) => res.data),
   });
   if (isLoading) return "Loading...";
@@ -42,7 +46,7 @@ console.log(userId);
 
   const handleDelete =async (id) => {
     try {
-        const dlt = await axios.delete(`http://localhost:8800/users/${id}`);
+        const dlt = await axios.delete(`https://mongodb-crud-psi.vercel.app/users/${id}`);
         if(dlt.status === 200) {
             hitToast('error', dlt.data.message)
         }
@@ -53,13 +57,17 @@ console.log(userId);
     }
   }
   const handleUpdate = async () => {
-    const url = `http://localhost:8800/users/${userId}`;
+    const url = `https://mongodb-crud-psi.vercel.app/users/${userId}`;
     console.log(url)
     try {
         const update = await axios.put(url, first);
         console.log(update)
-        if(update.status === 200) {
+        if(update.status === 201) {
             hitToast('success', update.data.message)
+            setFirst({
+              name: '',
+              email: ''
+            })
         }
         refetch()
     } catch (error) {

@@ -82,7 +82,7 @@ const Table = ({ handleDelete, data, refetch, first, setFirst, setUserId }) => {
                                     </td>
                                     <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                         <button
-                                            onClick={() => { handleDelete(item.id), refetch() }}
+                                            onClick={() => { handleDelete(item._id), refetch() }}
                                             className="text-red-500 hover:text-red-700"
                                         >
                                             Delete
